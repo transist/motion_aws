@@ -1,28 +1,15 @@
 module AWS
   module S3
     class Config
-      def self.key=(a)
-       @@key =  a
-      end 
-
-      def self.key
-       @@key
-      end
-
-      def self.secret=(c)
-       @@callback =  c
-      end
-
-      def self.secret
-       @@callback
-      end
-
-      def self.bucket=(c)
-       @@bucket =  c
-      end
-
-      def self.bucket
-       @@bucket
+      attr_accessor :key, :secret, :bucket
+      
+      def self.init
+        s3_config = YAML.load_file('config/s3.yml')["development"]
+        config = AWS::S3::Config.new
+        config.bucket = s3_config["bucket"]
+        config.key = s3_config["access_key_id"]
+        config.secret = s3_config["secret_access_key"]
+        config
       end
     end
   end

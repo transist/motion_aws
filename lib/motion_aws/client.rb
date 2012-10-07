@@ -2,6 +2,7 @@ module AWS
   module S3
     class Client
       attr_accessor :client
+      
       def initialize(client)
         self.client = client
       end

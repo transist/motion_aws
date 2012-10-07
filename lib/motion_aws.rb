@@ -13,6 +13,13 @@ module AWS
   end
 end
 
-['base', 'encoder'].each do |file|
+['encoder', 'config', 'client', 'base'].each do |file|
   require 'motion_aws/'+file
+end
+
+if File.exists?('config/s3.yml')
+  s3_config = YAML.load_file('config/s3.yml')["development"]
+  AWS::S3::Config.bucket = s3_config["bucket"]
+  AWS::S3::Config.key = s3_config["access_key_id"]
+  AWS::S3::Config.secret = s3_config["secret_access_key"]
 end

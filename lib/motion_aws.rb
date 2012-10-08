@@ -13,7 +13,7 @@ module AWS
   end
 end
 
-['encoder', 'client', 'base'].each do |file|
+['s3/client', 's3/base', 's3/bucket', 's3/object', 's3/endpoint'].each do |file|
   require 'motion_aws/'+file
 end
 

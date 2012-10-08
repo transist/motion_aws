@@ -7,24 +7,33 @@ module AWS
         self.client = client
       end
       
-      def create_bucket(name, &block)
-        block.call(self.client.createBucket(S3CreateBucketRequest.alloc.initWithName(name).autorelease))
+      def create_bucket(name)
+        self.client.createBucket(S3CreateBucketRequest.alloc.initWithName(name).autorelease)
       end
       
-      def list_bucket(bucket)
-        listObjectRequest = S3ListObjectsRequest.alloc.initWithName(bucket).autorelease
-        listObjectResponse = AmazonClientManager(self.client).listObjects(listObjectRequest)
-        listObjectsResults = listObjectResponse.listObjectsResult
-        listObjectsResults.objectSummaries.each do |objectSummary|
-          p objectSummary.key
-        end
-      end
+      # def delete_bucket(name)
+      #   self.client.createBucket(S3CreateBucketRequest.alloc.initWithName(name).autorelease)
+      # end
       
-      def put_object(bucket, data, filename, content_type, &block)
+      # def rename_bucket(name)
+      #   self.client.createBucket(S3CreateBucketRequest.alloc.initWithName(name).autorelease)
+      # end
+      
+      def put_object(bucket, data, filename, content_type, d)
         obj = S3PutObjectRequest.alloc.initWithKey(filename, inBucket: bucket).autorelease
         obj.contentType = content_type
-        obj.data = data;
-        block.call(self.client.putObject(obj))
+        obj.data = data
+        obj.delegate = d
+        self.client.putObject(obj)
+        obj.release
+      end
+      
+      def move_object(bucket, filename, new_filename, d)
+        
+      end
+      
+      def delete_object(bucket, filename, d)
+        
       end
     end
   end

@@ -1,15 +1,16 @@
 module AWS
   module S3
     class Config
-      attr_accessor :key, :secret, :bucket
+      attr_accessor :key, :secret, :container
       
-      def self.init
-        s3_config = YAML.load_file('config/s3.yml')["development"]
-        config = AWS::S3::Config.new
-        config.bucket = s3_config["bucket"]
-        config.key = s3_config["access_key_id"]
-        config.secret = s3_config["secret_access_key"]
-        config
+      def initialize(options={})
+        if options == {}
+          s3_config = YAML.load_file(File.expand_path(File.join(File.dirname(__FILE__), '../config/s3.yml')))["development"]
+          puts s3_config
+          self.container = s3_config["bucket"]
+          self.key = s3_config["access_key_id"]
+          self.secret = s3_config["secret_access_key"]
+        end
       end
     end
   end

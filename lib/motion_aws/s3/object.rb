@@ -1,6 +1,6 @@
 module AWS
   module S3
-    class Object
+    class Object < Base
     end
   end
 end

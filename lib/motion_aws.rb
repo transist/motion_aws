@@ -1,7 +1,7 @@
 require "motion_aws/version"
 
 Motion::Project::App.setup do |app|
-  Dir.glob(File.join(File.dirname(__FILE__), 'motion_aws/*.rb')).each do |file|
+  Dir.glob(File.join(File.dirname(__FILE__), 'motion_aws/**/*.rb')).each do |file|
     app.files.unshift(file)
   end
 
@@ -10,10 +10,12 @@ end
 
 module AWS
   module S3
+    class Base
+    end
   end
 end
 
-['s3/client', 's3/base', 's3/bucket', 's3/object', 's3/endpoint'].each do |file|
+['s3/base', 's3/client', 's3/bucket', 's3/object', 's3/endpoint'].each do |file|
   require 'motion_aws/'+file
 end
 

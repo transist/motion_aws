@@ -1,14 +1,14 @@
 module AWS
   module S3
-    class Client
+    class Client < Base
       attr_accessor :key, :secret, :client, :bucket, :endpoint
       
-      def initialize(client)
+      def initialize(options)
         self.key = options[:key]
         self.secret = options[:secret]
         self.bucket = options[:bucket]
         self.client = AWS::S3::Client.new(AmazonS3Client.alloc.initWithAccessKey(self.key, withSecretKey: self.secret).autorelease)
-        self.client.endpoint = self.endpoint = (options[:endpoint] ? options[:endpoint] : 'https://s3.amazonaws.com')
+        self.client.endpoint = self.endpoint = endpoint_from_options(options[:endpoint])
       end
       
       def put_object(bucket, data, filename, content_type, d)

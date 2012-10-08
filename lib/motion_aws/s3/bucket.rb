@@ -1,10 +1,11 @@
 module AWS
   module S3
-    class Bucket
+    class Bucket < Base
       attr_accessor :endpoint, :name
       def initialize(options)
-        self.endpoint = options[:endpoint]
+        self.client = options[:client]
         self.name = options[:name]
+        self.endpoint = self.client.endpoint 
       end
       
       def self.create(name)

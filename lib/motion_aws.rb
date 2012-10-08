@@ -13,8 +13,6 @@ module AWS
   end
 end
 
-require 'motion_aws/config'
-
 ['encoder', 'client', 'base'].each do |file|
   require 'motion_aws/'+file
 end

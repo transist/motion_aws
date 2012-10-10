@@ -11,6 +11,10 @@ module AWS
         self.client.endpoint = self.endpoint = endpoint_from_options(options[:endpoint])
       end
       
+      def create_bucket(name) 
+        self.client.createBucket(S3CreateBucketRequest.alloc.initWithName(name).autorelease)
+      end
+      
       def endpoint_from_options(endpoint)
         (endpoint ? AWS::S3::Endpoint.new(endpoint) : 'https://s3.amazonaws.com')
       end

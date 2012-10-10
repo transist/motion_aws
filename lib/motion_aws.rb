@@ -5,7 +5,9 @@ Motion::Project::App.setup do |app|
     app.files.unshift(file)
   end
 
-  app.vendor_project(File.expand_path(File.join(File.dirname(__FILE__), '../vendor/aws-ios-sdk-1.4.2/AWSiOSSDK.framework')), :static, :products => ['AWSiOSSDK'], :headers_dir => 'Headers')
+  app.pods do
+    pod 'AWSiOSSDK'
+  end
 end
 
 require 'motion_aws/s3/base'

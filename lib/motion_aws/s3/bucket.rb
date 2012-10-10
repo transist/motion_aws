@@ -8,30 +8,30 @@ module AWS
         self.endpoint = self.client.endpoint 
       end
       
-      def self.create(n=false)
-        self.client.createBucket(S3CreateBucketRequest.alloc.initWithName((n ? n : self.name)).autorelease)
+      def create
+        response = self.client.createBucket(S3CreateBucketRequest.alloc.initWithName(self.name).autorelease)
       end
       
       def delete
-        self.client.deleteBucketWithName(self.name)
+        response = self.client.deleteBucketWithName(self.name)
       end
       
       def get_location
-        self.client.getBucketLocation(self.name)
+        response = self.client.getBucketLocation(self.name)
       end
       
-      def self.list
-        self.client.listBuckets
+      def list
+        response = self.client.listBuckets
       end
       
-      def self.copy(source_key, source_bucket, destination_key, destination_bucket)
+      def copy(source_key, source_bucket, destination_key, destination_bucket)
         obj = S3CopyObjectRequest.alloc.initWithSourceKey(source_key, sourceBucket: source_bucket, destinationKey: destination_key, destinationBucket: destination_bucket).autorelease
         self.client.copyObject(obj)
-        obj.release
+        response = obj.release
       end
       
-      def self.list_objects
-        self.client.listObjectsInBucket(self.name)
+      def list_objects
+        response = self.client.listObjectsInBucket(self.name)
       end
     end
   end

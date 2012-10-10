@@ -8,14 +8,15 @@ Motion::Project::App.setup do |app|
   app.vendor_project(File.expand_path(File.join(File.dirname(__FILE__), '../vendor/aws-ios-sdk-1.4.2/AWSiOSSDK.framework')), :static, :products => ['AWSiOSSDK'], :headers_dir => 'Headers')
 end
 
+require 'motion_aws/s3/base'
+require 'motion_aws/s3/client'
+require 'motion_aws/s3/bucket'
+require 'motion_aws/s3/object'
+require 'motion_aws/s3/endpoint'
+
+
 module AWS
   module S3
-    class Base
-    end
   end
-end
-
-['s3/base', 's3/client', 's3/bucket', 's3/object', 's3/endpoint'].each do |file|
-  require 'motion_aws/'+file
 end
 

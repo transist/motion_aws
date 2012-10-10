@@ -1,7 +1,7 @@
 module AWS
   module S3
-    class Endpoint < Base
-      attr_accessor :name, :url 
+    class Endpoint
+      attr_accessor :name, :url, :domain 
       def initialize(endpoint=:default)
         self.name = endpoint
         self.domain = AWS::S3::Endpoint.endpoints[endpoint]

@@ -9,7 +9,11 @@ module AWS
       end
       
       def self.create(n=false)
+        begin
         self.client.createBucket(S3CreateBucketRequest.alloc.initWithName((n ? n : self.name)).autorelease)
+        rescue => e
+          
+        end
       end
     end
   end

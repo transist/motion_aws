@@ -21,6 +21,15 @@ module AWS
         obj.release
       end
       
+      def get
+        obj = S3PutObjectRequest.alloc.initWithKey(self.path, inBucket: self.bucket).autorelease
+        obj.contentType = self.content_type
+        obj.data = self.data
+        obj.delegate = self.delegator
+        self.client.putObject(obj)
+        obj.release
+      end
+      
       def move(new_path)
         
       end
@@ -36,6 +45,19 @@ module AWS
         self.client.deleteObject(obj)
         obj.release
       end
+      
+      # http://stackoverflow.com/questions/8530215/with-the-awsios-sdk-how-do-you-do-a-head-request-on-an-s3-object
+      def exists?(keyname, bucket)
+        request = S3GetObjectMetadataRequest.alloc.initWithKey(keyname, withBucket: bucket)
+        response = self.client.getObjectMetadata(request)
+        fileSize = response.contentLength
+        if fileSize > 0
+          return true
+        else
+          return false
+        end
+      end
+      
     end
   end
 end

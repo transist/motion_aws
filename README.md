@@ -1,6 +1,6 @@
 # MotionAws
 
-TODO: Write a gem description
+This is a rubymotion wrapper for [AWSiOSSDK](http://aws.amazon.com/sdkforios/) you can view the code on [github](https://github.com/amazonwebservices/aws-sdk-for-ios).  I haven't implemented everything, only the things that I need.  If you need more capabilities please fork and add them then send me a pull request.
 
 ## Installation
 
@@ -11,10 +11,6 @@ Add this line to your application's Gemfile:
 And then execute:
 
     $ bundle
-
-Or install it yourself as:
-
-    $ gem install motion_aws
 
 ## Usage
 

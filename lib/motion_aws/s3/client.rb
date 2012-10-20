@@ -22,6 +22,20 @@ module AWS
         req = S3DeleteBucketRequest.alloc.initWithName(name).autorelease    
         self.client.deleteBucket(req)
       end
+      
+      def put_object(path_name, data, content_type="image/jpeg")
+        object_request = S3PutObjectRequest.alloc.initWithKey(path_name, inBucket: self.bucket)
+        object_request.contentType = content_type
+        object_request.data = data                 
+        self.client.putObject(object_request)
+      end
+      
+      def delete_object(path_name, data, content_type="image/jpeg")
+        object_request = S3PutObjectRequest.alloc.initWithKey(path_name, inBucket: self.bucket)
+        object_request.contentType = content_type
+        object_request.data = data                 
+        self.client.putObject(object_request)
+      end
     end
   end
 end
